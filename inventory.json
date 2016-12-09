@@ -1,0 +1,36 @@
+{
+  "cars": [
+    {
+      "make": "Nissan",
+      "model": "Rogue",
+      "year": "2006",
+      "price": "8999",
+      "description": "This is an immaculate 2006 Nissan Rogue with only 25000 miles on it. Leather seats, power everything.",
+      "available": "yes"
+    },
+    {
+      "make": "Toyota",
+      "model": "Camry",
+      "year": "2008",
+      "price": "18999",
+      "description": "Reliable luxary sedan with only 30000 miles. Green color, white leather interior",
+      "available": "yes"
+    },
+    {
+      "make": "Tesla",
+      "model": "S",
+      "year": "2016",
+      "price": "58999",
+      "description": "Practically new Tesla!  Includes self-driving mode.",
+      "available": "yes"
+    },
+    {
+      "make": "Ford",
+      "model": "Escape",
+      "year": "2010",
+      "price": "9999",
+      "description": "Bright orange Ford Escape. Perfect for families.",
+      "available": "yes"
+    }
+  ]
+}
