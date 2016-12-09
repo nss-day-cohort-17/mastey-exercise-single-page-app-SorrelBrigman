@@ -14,19 +14,41 @@ var data;
 
 var populatePage = function () {
     console.log(data.cars);
+    var cardInfo = "";
   for (var i = 0; i < data.cars.length; i++) {
-      var cardInfo;
       var cardHolder = document.querySelector(".cardHolder");
-      cardInfo += `<div class="col-md-3 card">
+      //if the counter is at a value divisible by 3, it will start a new row
+      if ((i%3) === 0) {
+      cardInfo += `<div class="row"><div class="col-sm-3 card">
           <p>Make: <span class="make">${data.cars[i].make}</span></p>
           <p>Model: <span class="model">${data.cars[i].model}</span></p>
           <p>Year: <span class="year">${data.cars[i].year}</span></p>
           <p>Price: $<span class="price">${data.cars[i].price}</span></p>
           <p>Description: <span class="descr">${data.cars[i].description}</span></p>
-          <p>Availability: <span class="avail">${data.cars[i].availability:}</span></p>
+          <p>Availability: <span class="avail">${data.cars[i].availability}</span></p>
         </div>`;
-        cardHolder.innerHTML = cardInfo;
+        // if the card is the 3rd card on the row, or the last car card on the page it will add the closing div for the row
+      } else if ((i%3) === 2 || i === (data.cars.length)) {
+        cardInfo += `<div class="col-sm-3 card">
+          <p>Make: <span class="make">${data.cars[i].make}</span></p>
+          <p>Model: <span class="model">${data.cars[i].model}</span></p>
+          <p>Year: <span class="year">${data.cars[i].year}</span></p>
+          <p>Price: $<span class="price">${data.cars[i].price}</span></p>
+          <p>Description: <span class="descr">${data.cars[i].description}</span></p>
+          <p>Availability: <span class="avail">${data.cars[i].availability}</span></p>
+        </div></div>`;
+        //otherwise it add the  card without adding in row div tags
+      } cardInfo += `<div class="col-sm-3 card">
+          <p>Make: <span class="make">${data.cars[i].make}</span></p>
+          <p>Model: <span class="model">${data.cars[i].model}</span></p>
+          <p>Year: <span class="year">${data.cars[i].year}</span></p>
+          <p>Price: $<span class="price">${data.cars[i].price}</span></p>
+          <p>Description: <span class="descr">${data.cars[i].description}</span></p>
+          <p>Availability: <span class="avail">${data.cars[i].availability}</span></p>
+        </div>`;
   }
+  // loads card info into the page
+          cardHolder.innerHTML = cardInfo;
 }
 
 
