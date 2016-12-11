@@ -56,8 +56,14 @@ var populatePage = function () {
 //create a function to house all the event listeners
 
 var activateEvents = function () {
+  //when a card is clicked on, it will be updated with color and border size.
   document.querySelector(".cardHolder").addEventListener("click", addColor);
+  //when input field is typed in, the description will update
+    //when user presses enter, the changes will post and the card will be unselected
   document.querySelector("input").addEventListener("keyup", updateDescript);
+  //when the "post changes" button is clicked, the changes will post and the card will be unselected
+  document.querySelector("button").addEventListener("click", postChanges);
+
 }
 
 
@@ -89,6 +95,9 @@ loadInventory();
 
 var addColor = function (e) {
   e.preventDefault;
+  if(document.querySelector(".selected") !== null) {
+    reset();
+  }
   //if they click on one of the p elements in the card
   if (event.target.parentElement.className.split(" ")[1] === "card") {
         var targetThisCard = event.target.parentElement;
@@ -111,8 +120,43 @@ var addColor = function (e) {
 
 //Function that updates text
 
-var updateDescript = function () {
+var updateDescript = function (e) {
   //selects the inner text of the selected card's description element
   //and sets it equal to the value of the input field, changing on every keyup
-  document.querySelector(".selected span.descr").innerText = document.querySelector("input").value;
+  if(e.keyCode !== 13) {
+    document.querySelector(".selected span.descr").innerText = document.querySelector("input").value;
+  } else if (e.keyCode === 13) {
+    document.querySelector("input").value = " ";
+    reset();
+  }
 }
+
+
+//Function that resets card value to normal
+
+var reset = function() {
+  var selectedCard = document.querySelector(".selected");
+  //as long as there is a selected card
+  if(selectedCard !== null) {
+  //that selected card will return to normal by removing the selected class
+  document.querySelector(".selected").className = "col-sm-3 card";
+  }
+}
+
+//function that will unselect the card when the user is finished updating descript and clicks the button
+
+var postChanges = function(e) {
+  e.preventDefault();
+  document.querySelector("input").value = " ";
+  reset();
+}
+
+//function that will unselect the card when the user is finished updating descript and hits enter
+// var postChangesEnter = function(e) {
+//   e.preventDefault();
+//   console.log(e);
+//   if (e.keyCode === 13) {
+//     document.querySelector("input").value = " ";
+//     reset();
+//   }
+// }
