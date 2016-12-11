@@ -57,7 +57,7 @@ var populatePage = function () {
 
 var activateEvents = function () {
   document.querySelector(".cardHolder").addEventListener("click", addColor);
-  document.querySelector("input").addEventListener("keypress", updateDescript);
+  document.querySelector("input").addEventListener("keyup", updateDescript);
 }
 
 
@@ -103,7 +103,7 @@ var addColor = function (e) {
         event.target.parentElement.parentElement.className = "col-sm-3 selected";
     }
     //clears any text in the input text field
-    document.querySelector("input").innerHTML = " ";
+    document.querySelector("input").value = " ";
     document.querySelector("input").focus();
     //calls function to update text
 }
@@ -112,7 +112,7 @@ var addColor = function (e) {
 //Function that updates text
 
 var updateDescript = function () {
-  var descrToUpdate = document.querySelector(".selected descr").innerHTML;
-  var descrInProcess = document.querySelector("input").innerHTML;
-  descrInProcess = descrToUpdate;
+  //selects the inner text of the selected card's description element
+  //and sets it equal to the value of the input field, changing on every keyup
+  document.querySelector(".selected span.descr").innerText = document.querySelector("input").value;
 }
