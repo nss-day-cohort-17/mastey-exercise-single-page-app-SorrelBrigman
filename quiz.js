@@ -22,18 +22,9 @@ var populatePage = function () {
   for (var i = 0; i < data.cars.length; i++) {
       var cardHolder = document.querySelector(".cardHolder");
       //if the counter is at a value divisible by 3 AND the last last car, it will start a new row and close off the div
-      if((i%3) === 0 && i === (data.cars.length - 1)) {
-      cardInfo += `<div class="row"><div class="col-sm-3 card">
-          <p>Make: <span class="make">${data.cars[i].make}</span></p>
-          <p>Model: <span class="model">${data.cars[i].model}</span></p>
-          <p>Year: <span class="year">${data.cars[i].year}</span></p>
-          <p>Price: $<span class="price">${data.cars[i].price}</span></p>
-          <p>Description: <span class="descr">${data.cars[i].description}</span></p>
-          <p>Availability: <span class="avail">${data.cars[i].availability}</span></p>
-        </div></div>`;
-      //if the counter is at a value divisible by 3, it will start a new row
-      } else if ((i%3) === 0) {
-      cardInfo += `<div class="row"><div class="col-sm-3 card">
+      if((i%3) === 0) {
+      cardInfo += `<div class="row">`
+      } cardInfo += `<div class="col-sm-3 card">
           <p>Make: <span class="make">${data.cars[i].make}</span></p>
           <p>Model: <span class="model">${data.cars[i].model}</span></p>
           <p>Year: <span class="year">${data.cars[i].year}</span></p>
@@ -41,25 +32,9 @@ var populatePage = function () {
           <p>Description: <span class="descr">${data.cars[i].description}</span></p>
           <p>Availability: <span class="avail">${data.cars[i].availability}</span></p>
         </div>`;
-        // if the card is the 3rd card on the row, or the last car card on the page it will add the closing div for the row
-      } else if ((i%3) === 2 || i === (data.cars.length - 1)) {
-        cardInfo += `<div class="col-sm-3 card">
-          <p>Make: <span class="make">${data.cars[i].make}</span></p>
-          <p>Model: <span class="model">${data.cars[i].model}</span></p>
-          <p>Year: <span class="year">${data.cars[i].year}</span></p>
-          <p>Price: $<span class="price">${data.cars[i].price}</span></p>
-          <p>Description: <span class="descr">${data.cars[i].description}</span></p>
-          <p>Availability: <span class="avail">${data.cars[i].availability}</span></p>
-        </div></div>`;
-        //otherwise it add the card without adding in row div tags
-      }  else { cardInfo += `<div class="col-sm-3 card">
-          <p>Make: <span class="make">${data.cars[i].make}</span></p>
-          <p>Model: <span class="model">${data.cars[i].model}</span></p>
-          <p>Year: <span class="year">${data.cars[i].year}</span></p>
-          <p>Price: $<span class="price">${data.cars[i].price}</span></p>
-          <p>Description: <span class="descr">${data.cars[i].description}</span></p>
-          <p>Availability: <span class="avail">${data.cars[i].availability}</span></p>
-        </div>`;
+      //if the counter is at end of a row or the last card, close the row div
+      if ((i%3) === 2 || i === (data.cars.length - 1)) {
+        cardInfo += `</div>`;
       }
   }
   // loads card info into the page
