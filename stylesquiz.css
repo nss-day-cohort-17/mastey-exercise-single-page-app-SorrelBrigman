@@ -11,7 +11,7 @@
 /*stying for card when selected*/
 .selected {
   border: 5px solid black;
-  background-color: tomato;
+  /*background-color: tomato;*/
   padding-top:  2em;
   padding-bottom: 2em;
   margin: 1em;

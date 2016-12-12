@@ -67,7 +67,7 @@ var populatePage = function () {
 
 var activateEvents = function () {
   //when a card is clicked on, it will be updated with color and border size.
-  document.querySelector(".cardHolder").addEventListener("click", addColor);
+  document.querySelector(".cardHolder").addEventListener("click", chooseTarget);
   //when input field is typed in, the description will update
     //when user presses enter, the changes will post and the card will be unselected
   document.querySelector("input").addEventListener("keyup", updateDescript);
@@ -77,7 +77,15 @@ var activateEvents = function () {
 }
 
 
+//Required function that passes DOM element and color name
 
+var chooseTarget = function(e) {
+  //prevents input field from focusing on clicked on element
+  e.preventDefault;
+  var clickedOnElement = e.target;
+  var colorName = "tomato";
+  makeSelected(clickedOnElement, colorName)
+}
 
 
 
@@ -97,34 +105,40 @@ function loadInventory () {
   inventoryLoader.open("GET", "https://masteycarlot.firebaseio.com/.json");
   inventoryLoader.send();
 }
-
+//calls the function loadInventory
 loadInventory();
 
+//changes the style of the selected element
+var changeStyle = function(choice) {
+  document.querySelector(".selected").setAttribute("style", "background-color: " + choice);
+
+}
 
 //Function that addes background color and thickens border
 
-var addColor = function (e) {
-  e.preventDefault;
+var makeSelected = function (clicked, colorChoice ) {
+
   if(document.querySelector(".selected") !== null) {
     reset();
   }
   //if they click on one of the p elements in the card
-  if (event.target.parentElement.className.split(" ")[1] === "card") {
-        var targetThisCard = event.target.parentElement;
-        event.target.parentElement.className = "col-sm-3 selected";
+  if (clicked.parentElement.className.split(" ")[1] === "card") {
+        var targetThisCard = clicked.parentElement;
+        clicked.parentElement.className = "col-sm-3 selected";
        //if they click on the card element itself
-    } else if (event.target.className.split(" ")[1] === "card") {
-        var targetThisCard = event.target;
-        event.target.className = "col-sm-3 selected";
+    } else if (clicked.className.split(" ")[1] === "card") {
+        var targetThisCard = clicked;
+        clicked.className = "col-sm-3 selected";
         //if they click on the span inside of the p element in the card
-    } else if (event.target.parentElement.parentElement.className.split(" ")[1] === "card") {
-        var targetThisCard = event.target.parentElement.parentElement;
-        event.target.parentElement.parentElement.className = "col-sm-3 selected";
+    } else if (clicked.parentElement.parentElement.className.split(" ")[1] === "card") {
+        var targetThisCard = clicked.parentElement.parentElement;
+        clicked.parentElement.parentElement.className = "col-sm-3 selected";
     }
     //clears any text in the input text field
     document.querySelector("input").value = " ";
     document.querySelector("input").focus();
-    //calls function to update text
+    //add the background color
+    changeStyle(colorChoice);
 }
 
 
@@ -135,6 +149,7 @@ var updateDescript = function (e) {
   //and sets it equal to the value of the input field, changing on every keyup
   if(e.keyCode !== 13) {
     document.querySelector(".selected span.descr").innerText = document.querySelector("input").value;
+    //When user hits enter, it posts the changes and unselect the card
   } else if (e.keyCode === 13) {
     document.querySelector("input").value = " ";
     reset();
@@ -149,7 +164,10 @@ var reset = function() {
   //as long as there is a selected card
   if(selectedCard !== null) {
   //that selected card will return to normal by removing the selected class
+  document.querySelector(".selected").setAttribute("style", "background-color: none");
   document.querySelector(".selected").className = "col-sm-3 card";
+  //input no longer in focus
+  document.querySelector("input").blur();
   }
 }
 
