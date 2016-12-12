@@ -11,6 +11,10 @@ var data;
 
 
 
+/////////
+//Functions to call json file and add to page
+//////
+
 //function to populate the page
 
 var populatePage = function () {
@@ -63,32 +67,6 @@ var populatePage = function () {
 }
 
 
-//create a function to house all the event listeners
-
-var activateEvents = function () {
-  //when a card is clicked on, it will be updated with color and border size.
-  document.querySelector(".cardHolder").addEventListener("click", chooseTarget);
-  //when input field is typed in, the description will update
-    //when user presses enter, the changes will post and the card will be unselected
-  document.querySelector("input").addEventListener("keyup", updateDescript);
-  //when the "post changes" button is clicked, the changes will post and the card will be unselected
-  document.querySelector("button").addEventListener("click", postChanges);
-
-}
-
-
-//Required function that passes DOM element and color name
-
-var chooseTarget = function(e) {
-  //prevents input field from focusing on clicked on element
-  e.preventDefault;
-  var clickedOnElement = e.target;
-  var colorName = "tomato";
-  makeSelected(clickedOnElement, colorName)
-}
-
-
-
 
 //Parses JSON file to var
 var parseJson = function(e) {
@@ -108,6 +86,43 @@ function loadInventory () {
 //calls the function loadInventory
 loadInventory();
 
+
+//////////////
+//Listener Events
+////////////////
+
+
+//function to house all the event listeners
+
+var activateEvents = function () {
+  //when a card is clicked on, it will be updated with color and border size.
+  document.querySelector(".cardHolder").addEventListener("click", chooseTarget);
+  //when input field is typed in, the description will update
+    //when user presses enter in the input field, the changes will post and the card will be unselected
+  document.querySelector("input").addEventListener("keyup", updateDescript);
+  //when the "post changes" button is clicked, the changes will post and the card will be unselected
+  document.querySelector("button").addEventListener("click", postChanges);
+
+}
+
+
+
+//////////////////
+//Functions that change cards - both selection feature and changing description feature
+//////////////////
+
+//Required function that passes DOM element and color name
+
+var chooseTarget = function(e) {
+// e.target is assigned a var that  will be passed to next function as arguement
+  var clickedOnElement = e.target;
+  //color name assigned a var and passed as an arguement
+  var colorName = "tomato";
+  //calls the function, passing e.target info and color name
+  makeSelected(clickedOnElement, colorName)
+}
+
+
 //changes the style of the selected element
 var changeStyle = function(choice) {
   document.querySelector(".selected").setAttribute("style", "background-color: " + choice);
@@ -115,6 +130,7 @@ var changeStyle = function(choice) {
 }
 
 //Function that addes background color and thickens border
+//reminder, "clicked" = the target of the click event, aka where the user clicked inside the card container element
 
 var makeSelected = function (clicked, colorChoice ) {
 
@@ -142,7 +158,9 @@ var makeSelected = function (clicked, colorChoice ) {
 }
 
 
-//Function that updates text
+
+
+//Function that updates text on the selected card when the user is typing in the input box
 
 var updateDescript = function (e) {
   //selects the inner text of the selected card's description element
@@ -157,7 +175,13 @@ var updateDescript = function (e) {
 }
 
 
-//Function that resets card value to normal
+///////////////
+//Functoins to unselect card and return to an unselected state
+////////////
+
+
+
+//Function that resets card value to normal after user is finished typing in the input box
 
 var reset = function() {
   var selectedCard = document.querySelector(".selected");
@@ -176,15 +200,6 @@ var reset = function() {
 var postChanges = function(e) {
   e.preventDefault();
   document.querySelector("input").value = " ";
+  //runs the reset function to make card unselected
   reset();
 }
-
-//function that will unselect the card when the user is finished updating descript and hits enter
-// var postChangesEnter = function(e) {
-//   e.preventDefault();
-//   console.log(e);
-//   if (e.keyCode === 13) {
-//     document.querySelector("input").value = " ";
-//     reset();
-//   }
-// }
